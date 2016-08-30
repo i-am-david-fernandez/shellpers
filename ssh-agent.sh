@@ -1,5 +1,8 @@
-## <DF> SSH-agent configuration
-## (refer to https://confluence.atlassian.com/display/BITBUCKET/Set+up+SSH+for+Git)
+## ┌────────────────────────────────────────────────────────────────────────────┐
+## │ <DF>                                                                       │
+## SSH-agent configuration
+## Refer to https://confluence.atlassian.com/display/BITBUCKET/Set+up+SSH+for+Git
+
 SSH_ENV="$HOME/.ssh/environment"
 SSH_KEY_DIR="$HOME/.ssh/keys"
 
@@ -28,4 +31,5 @@ then
 else
     start_agent;
 fi
-## </DF>
+## │ </DF>                                                                      │
+## └────────────────────────────────────────────────────────────────────────────┘

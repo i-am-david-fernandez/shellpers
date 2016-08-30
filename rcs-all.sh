@@ -1,7 +1,9 @@
-## <DF> Perform an rcs (git, svn etc.) operation on a set of recursively-found rcs repositories,
+## ┌────────────────────────────────────────────────────────────────────────────┐
+## │ <DF>                                                                       │
+## Perform an rcs (git, svn etc.) operation on a set of recursively-found rcs repositories,
 ## e.g., perform 'rcs status' on all rcs repositories under the current directory.
 
-rcsAll()
+rcs_all()
 {
     local rcs=$1
     shift
@@ -37,5 +39,7 @@ rcsAll()
     done
 }
 
-alias git-all='rcsAll git'
-alias svn-all='rcsAll svn'
+alias git-all='rcs_all git'
+alias svn-all='rcs_all svn'
+## │ </DF>                                                                      │
+## └────────────────────────────────────────────────────────────────────────────┘

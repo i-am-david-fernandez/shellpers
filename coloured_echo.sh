@@ -1,4 +1,5 @@
-## <DF>
+## ┌────────────────────────────────────────────────────────────────────────────┐
+## │ <DF>                                                                       │
 ## These 'echo' wrappers provide a convenient way to produce coloured terminal messages from scripts using
 ## simple escape codes. They are intended for use in terminals with a dark-background theme (e.g., white text
 ## on black background).
@@ -34,3 +35,5 @@ echoError()
     echo -e "\033[31m$*"
     echo -en "\033[0m"
 }
+## │ </DF>                                                                      │
+## └────────────────────────────────────────────────────────────────────────────┘
