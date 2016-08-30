@@ -11,7 +11,7 @@ sudo chmod --recursive go-rwX $SSH_KEY_DIR
 
 function start_agent
 {
-    echoInfoMajor "Initializing new SSH agent..."
+    echo_info_major "Initializing new SSH agent..."
     /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
     chmod 600 $SSH_ENV
     . $SSH_ENV > /dev/null

@@ -18,8 +18,8 @@ rcs_all()
 
     if [ ! "$*" ]
     then
-        echoError "Error! No options specified."
-        echoInfoMinor \
+        echo_error "Error! No options specified."
+        echo_info_minor \
             "Usage:
   $0 [base directory] <rcs operation>
   e.g.: $0 ./my-projects status
@@ -32,7 +32,7 @@ rcs_all()
     for rcs_dir in `find $base_dir -type d -name ".${rcs}" | sort`
     do
         rcs_dir=`realpath "$rcs_dir/.."`
-        echoInfoMajor "Operating in $rcs_dir"
+        echo_info_major "Operating in $rcs_dir"
         pushd $rcs_dir > /dev/null
         $rcs $*
         popd > /dev/null

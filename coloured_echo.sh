@@ -12,25 +12,25 @@
 ## Usage:
 ##  echoXYZ "This is a coloured message!"
 ## e.g.,
-##    echoInfoMajor "Performing first stage processing of large dataset..."
-##    echoInfoMinor "  - Doing the first thing..."
-##    echoInfoMinor "  - Reticulating splines..."
-##    echoInfoMajor "Complete."
-##    echoError "Error! Splines not fully reticulated; system unstable, terminal failure imminent!"
+##    echo_info_major "Performing first stage processing of large dataset..."
+##    echo_info_minor "  - Doing the first thing..."
+##    echo_info_minor "  - Reticulating splines..."
+##    echo_info_major "Complete."
+##    echo_error "Error! Splines not fully reticulated; system unstable, terminal failure imminent!"
 
-echoInfoMajor()
+echo_info_major()
 {
     echo -e "\033[32m$*"
     echo -en "\033[0m"
 }
 
-echoInfoMinor()
+echo_info_minor()
 {
     echo -e "\033[94m$*"
     echo -en "\033[0m"
 }
 
-echoError()
+echo_error()
 {
     echo -e "\033[31m$*"
     echo -en "\033[0m"
