@@ -7,7 +7,7 @@ SSH_ENV="$HOME/.ssh/environment"
 SSH_KEY_DIR="$HOME/.ssh/keys"
 
 mkdir -p $SSH_KEY_DIR
-sudo chmod --recursive go-rwX $SSH_KEY_DIR
+chmod --recursive go-rwX $SSH_KEY_DIR
 
 function start_agent
 {
