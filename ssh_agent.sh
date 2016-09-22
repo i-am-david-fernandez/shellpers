@@ -9,7 +9,7 @@ SSH_KEY_DIR="$HOME/.ssh/keys"
 mkdir -p $SSH_KEY_DIR
 chmod --recursive go-rwX $SSH_KEY_DIR
 
-function start_agent
+start_agent()
 {
     echo_info_major "Initializing new SSH agent..."
     /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"

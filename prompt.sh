@@ -26,27 +26,27 @@ else
     PATH_COLOUR=$COLOUR_BOLD_BLUE
 fi
 
-function user_prompt
+user_prompt()
 {
     echo -n '${debian_chroot:+($debian_chroot)}'"${ANSI_ESCAPE}[$USER_COLOUR\]"'\u@\h'"${ANSI_RESET}"
 }
 
-function short_pwd
+short_pwd()
 {
     echo $PWD | sed "s:${HOME}:~:" | sed "s:/\(.\{1\}\)[^/]*:/\1:g" | sed "s:/[^/]*$:/$(basename $PWD):"
 }
 
-function path_prompt
+path_prompt()
 {
     echo -n "${ANSI_ESCAPE}[$PATH_COLOUR\]"'$(short_pwd)'"${ANSI_RESET}"
 }
 
-function rcs_branch
+rcs_branch()
 {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
-function rcs_unadded_new
+rcs_unadded_new()
 {
     if git rev-parse --is-inside-work-tree &> /dev/null
     then
@@ -59,7 +59,7 @@ function rcs_unadded_new
     fi
 }
 
-function rcs_needs_commit
+rcs_needs_commit()
 {
     if [[ "git rev-parse --is-inside-work-tree &> /dev/null)" != 'true' ]] && git rev-parse --quiet --verify HEAD &> /dev/null
     then
@@ -68,7 +68,7 @@ function rcs_needs_commit
     fi
 }
 
-function rcs_modified_files
+rcs_modified_files()
 {
     if [[ "git rev-parse --is-inside-work-tree &> /dev/null)" != 'true' ]] && git rev-parse --quiet --verify HEAD &> /dev/null
     then
@@ -76,7 +76,7 @@ function rcs_modified_files
     fi
 }
 
-function rcs_prompt
+rcs_prompt()
 {
     echo -n "${ANSI_ESCAPE}[$COLOUR_BOLD_MAGENTA\]"'$(rcs_branch)'"${ANSI_RESET}"
     echo -n "${ANSI_ESCAPE}[$COLOUR_GREEN\]"'$(rcs_needs_commit)'"${ANSI_RESET}"
