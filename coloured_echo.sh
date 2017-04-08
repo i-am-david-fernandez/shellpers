@@ -24,22 +24,22 @@ source colour_definitions.sh
 
 echo_info_major()
 {
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_GREEN}$*${ANSI_RESET}
+    echo -e ${colour_plain_green}$*${colour_reset}
 }
 
 echo_info_minor()
 {
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_LIGHT_BLUE}$*${ANSI_RESET}
+    echo -e ${colour_plain_light_blue}$*${colour_reset}
 }
 
 echo_warning()
 {
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_YELLOW}$*${ANSI_RESET}
+    echo -e ${colour_plain_yellow}$*${colour_reset}
 }
 
 echo_error()
 {
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_RED}$*${ANSI_RESET}
+    echo -e ${colour_plain_red}$*${colour_reset}
 }
 
 demo_echos()
@@ -49,6 +49,11 @@ demo_echos()
     echo_warning "Warning thing"
     echo_error "Error thing"
 }
+
+if [ "$0" != "-bash" ]
+then
+    demo_echos
+fi
 
 ## │ </DF>                                                                      │
 ## └────────────────────────────────────────────────────────────────────────────┘

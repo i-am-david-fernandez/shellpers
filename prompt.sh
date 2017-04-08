@@ -4,31 +4,22 @@
 ## The messy-looking flipping between single and double quotes is necessary to ensure control codes and function evaluation
 ## happen correctly.
 
-COLOUR_RED="31m"
-COLOUR_YELLOW="33m"
-COLOUR_GREEN="32m"
-
-COLOUR_BOLD_RED="01;31m"
-COLOUR_BOLD_GREEN="01;32m"
-COLOUR_BOLD_BLUE="01;34m"
-COLOUR_BOLD_MAGENTA="01;35m"
+source colour_definitions.sh
 
 SYMBOL_RCS="@"
 
-ANSI_ESCAPE="\[\033"
-ANSI_RESET="${ANSI_ESCAPE}[00m\]"
-
-if [ `id -u` = 0 ]; then
-    USER_COLOUR="04;$COLOUR_BOLD_RED"
-    PATH_COLOUR=$COLOUR_BOLD_RED
+if [ `id -u` == 0 ]; then
+    ## More prominant colouring for root
+    USER_COLOUR=$colour_blink_red
+    PATH_COLOUR=$colour_bold_blue
 else
-    USER_COLOUR=$COLOUR_BOLD_GREEN
-    PATH_COLOUR=$COLOUR_BOLD_BLUE
+    USER_COLOUR=$colour_plain_green
+    PATH_COLOUR=$colour_bold_blue
 fi
 
 user_prompt()
 {
-    echo -n '${debian_chroot:+($debian_chroot)}'"${ANSI_ESCAPE}[$USER_COLOUR\]"'\u@\h'"${ANSI_RESET}"
+    echo -n '${debian_chroot:+($debian_chroot)}'"$USER_COLOUR\]"'\u@\h'"${colour_reset}"
 }
 
 short_pwd()
@@ -38,7 +29,7 @@ short_pwd()
 
 path_prompt()
 {
-    echo -n "${ANSI_ESCAPE}[$PATH_COLOUR\]"'$(short_pwd)'"${ANSI_RESET}"
+    echo -n "$PATH_COLOUR\]"'$(short_pwd)'"${colour_reset}"
 }
 
 rcs_branch()
@@ -78,10 +69,10 @@ rcs_modified_files()
 
 rcs_prompt()
 {
-    echo -n "${ANSI_ESCAPE}[$COLOUR_BOLD_MAGENTA\]"'$(rcs_branch)'"${ANSI_RESET}"
-    echo -n "${ANSI_ESCAPE}[$COLOUR_GREEN\]"'$(rcs_needs_commit)'"${ANSI_RESET}"
-    echo -n "${ANSI_ESCAPE}[$COLOUR_YELLOW\]"'$(rcs_modified_files)'"${ANSI_RESET}"
-    echo -n "${ANSI_ESCAPE}[$COLOUR_RED\]"'$(rcs_unadded_new)'"${ANSI_RESET}"
+    echo -en "$colour_bold_magenta"'$(rcs_branch)'"${colour_reset}"
+    echo -en "$colour_plain_green"'$(rcs_needs_commit)'"${colour_reset}"
+    echo -en "$colour_plain_yellow"'$(rcs_modified_files)'"${colour_reset}"
+    echo -en "$colour_plain_red"'$(rcs_unadded_new)'"${colour_reset}"
 }
 
 PS1="$(user_prompt):$(path_prompt) $(rcs_prompt) $ "

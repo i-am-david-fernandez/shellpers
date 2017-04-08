@@ -1,54 +1,98 @@
-## ┌────────────────────────────────────────────────────────────────────────────┐
-## │ <DF>                                                                       │
-##
-## Symbolic definitions of a bunch of useful terminal colour escape codes.
-
-ANSI_ESCAPE="\033"
-ANSI_RESET="${ANSI_ESCAPE}[00m"
-
-ANSI_COLOUR_DEFAULT="[39m"
-
-ANSI_COLOUR_BLACK="[30m"
-ANSI_COLOUR_RED="[31m"
-ANSI_COLOUR_GREEN="[32m"
-ANSI_COLOUR_YELLOW="[33m"
-ANSI_COLOUR_BLUE="[34m"
-ANSI_COLOUR_MAGENTA="[35m"
-ANSI_COLOUR_CYAN="[36m"
-ANSI_COLOUR_GREY="[37m"
-
-ANSI_COLOUR_LIGHT_BLACK="[90m"
-ANSI_COLOUR_LIGHT_RED="[91m"
-ANSI_COLOUR_LIGHT_GREEN="[92m"
-ANSI_COLOUR_LIGHT_YELLOW="[93m"
-ANSI_COLOUR_LIGHT_BLUE="[94m"
-ANSI_COLOUR_LIGHT_MAGENTA="[95m"
-ANSI_COLOUR_LIGHT_CYAN="[96m"
-ANSI_COLOUR_LIGHT_GREY="[97m"
-
-demo_colours()
-{
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_DEFAULT}ANSI_COLOUR_DEFAULT${ANSI_RESET}
-
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_BLACK}ANSI_COLOUR_BLACK${ANSI_RESET}
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_RED}ANSI_COLOUR_RED${ANSI_RESET}
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_GREEN}ANSI_COLOUR_GREEN${ANSI_RESET}
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_YELLOW}ANSI_COLOUR_YELLOW${ANSI_RESET}
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_BLUE}ANSI_COLOUR_BLUE${ANSI_RESET}
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_MAGENTA}ANSI_COLOUR_MAGENTA${ANSI_RESET}
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_CYAN}ANSI_COLOUR_CYAN${ANSI_RESET}
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_GREY}ANSI_COLOUR_GREY${ANSI_RESET}
-
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_LIGHT_BLACK}ANSI_COLOUR_LIGHT_BLACK${ANSI_RESET}
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_LIGHT_RED}ANSI_COLOUR_LIGHT_RED${ANSI_RESET}
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_LIGHT_GREEN}ANSI_COLOUR_LIGHT_GREEN${ANSI_RESET}
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_LIGHT_YELLOW}ANSI_COLOUR_LIGHT_YELLOW${ANSI_RESET}
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_LIGHT_BLUE}ANSI_COLOUR_LIGHT_BLUE${ANSI_RESET}
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_LIGHT_MAGENTA}ANSI_COLOUR_LIGHT_MAGENTA${ANSI_RESET}
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_LIGHT_CYAN}ANSI_COLOUR_LIGHT_CYAN${ANSI_RESET}
-    echo -e ${ANSI_ESCAPE}${ANSI_COLOUR_LIGHT_GREY}ANSI_COLOUR_LIGHT_GREY${ANSI_RESET}
-}
-
-##
-## │ </DF>                                                                      │
-## └────────────────────────────────────────────────────────────────────────────┘
+colour_default="\033[39m"
+colour_reset="\033[00m"
+colour_plain_black="\033[30m"
+colour_plain_light_black="\033[90m"
+colour_bold_black="\033[1;30m"
+colour_bold_light_black="\033[1;90m"
+colour_dim_black="\033[2;30m"
+colour_dim_light_black="\033[2;90m"
+colour_underlined_black="\033[4;30m"
+colour_underlined_light_black="\033[4;90m"
+colour_blink_black="\033[5;30m"
+colour_blink_light_black="\033[5;90m"
+colour_inverse_black="\033[7;30m"
+colour_inverse_light_black="\033[7;90m"
+colour_plain_red="\033[31m"
+colour_plain_light_red="\033[91m"
+colour_bold_red="\033[1;31m"
+colour_bold_light_red="\033[1;91m"
+colour_dim_red="\033[2;31m"
+colour_dim_light_red="\033[2;91m"
+colour_underlined_red="\033[4;31m"
+colour_underlined_light_red="\033[4;91m"
+colour_blink_red="\033[5;31m"
+colour_blink_light_red="\033[5;91m"
+colour_inverse_red="\033[7;31m"
+colour_inverse_light_red="\033[7;91m"
+colour_plain_green="\033[32m"
+colour_plain_light_green="\033[92m"
+colour_bold_green="\033[1;32m"
+colour_bold_light_green="\033[1;92m"
+colour_dim_green="\033[2;32m"
+colour_dim_light_green="\033[2;92m"
+colour_underlined_green="\033[4;32m"
+colour_underlined_light_green="\033[4;92m"
+colour_blink_green="\033[5;32m"
+colour_blink_light_green="\033[5;92m"
+colour_inverse_green="\033[7;32m"
+colour_inverse_light_green="\033[7;92m"
+colour_plain_yellow="\033[33m"
+colour_plain_light_yellow="\033[93m"
+colour_bold_yellow="\033[1;33m"
+colour_bold_light_yellow="\033[1;93m"
+colour_dim_yellow="\033[2;33m"
+colour_dim_light_yellow="\033[2;93m"
+colour_underlined_yellow="\033[4;33m"
+colour_underlined_light_yellow="\033[4;93m"
+colour_blink_yellow="\033[5;33m"
+colour_blink_light_yellow="\033[5;93m"
+colour_inverse_yellow="\033[7;33m"
+colour_inverse_light_yellow="\033[7;93m"
+colour_plain_blue="\033[34m"
+colour_plain_light_blue="\033[94m"
+colour_bold_blue="\033[1;34m"
+colour_bold_light_blue="\033[1;94m"
+colour_dim_blue="\033[2;34m"
+colour_dim_light_blue="\033[2;94m"
+colour_underlined_blue="\033[4;34m"
+colour_underlined_light_blue="\033[4;94m"
+colour_blink_blue="\033[5;34m"
+colour_blink_light_blue="\033[5;94m"
+colour_inverse_blue="\033[7;34m"
+colour_inverse_light_blue="\033[7;94m"
+colour_plain_magenta="\033[35m"
+colour_plain_light_magenta="\033[95m"
+colour_bold_magenta="\033[1;35m"
+colour_bold_light_magenta="\033[1;95m"
+colour_dim_magenta="\033[2;35m"
+colour_dim_light_magenta="\033[2;95m"
+colour_underlined_magenta="\033[4;35m"
+colour_underlined_light_magenta="\033[4;95m"
+colour_blink_magenta="\033[5;35m"
+colour_blink_light_magenta="\033[5;95m"
+colour_inverse_magenta="\033[7;35m"
+colour_inverse_light_magenta="\033[7;95m"
+colour_plain_cyan="\033[36m"
+colour_plain_light_cyan="\033[96m"
+colour_bold_cyan="\033[1;36m"
+colour_bold_light_cyan="\033[1;96m"
+colour_dim_cyan="\033[2;36m"
+colour_dim_light_cyan="\033[2;96m"
+colour_underlined_cyan="\033[4;36m"
+colour_underlined_light_cyan="\033[4;96m"
+colour_blink_cyan="\033[5;36m"
+colour_blink_light_cyan="\033[5;96m"
+colour_inverse_cyan="\033[7;36m"
+colour_inverse_light_cyan="\033[7;96m"
+colour_plain_grey="\033[37m"
+colour_plain_light_grey="\033[97m"
+colour_bold_grey="\033[1;37m"
+colour_bold_light_grey="\033[1;97m"
+colour_dim_grey="\033[2;37m"
+colour_dim_light_grey="\033[2;97m"
+colour_underlined_grey="\033[4;37m"
+colour_underlined_light_grey="\033[4;97m"
+colour_blink_grey="\033[5;37m"
+colour_blink_light_grey="\033[5;97m"
+colour_inverse_grey="\033[7;37m"
+colour_inverse_light_grey="\033[7;97m"
