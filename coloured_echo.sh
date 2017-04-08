@@ -20,7 +20,8 @@
 ##    echo_warning "Warning! Probability of failure to reticulate increasing."
 ##    echo_error "Error! Splines not fully reticulated; system unstable, terminal failure imminent!"
 
-source colour_definitions.sh
+## Requires colour_definitions.sh
+##source colour_definitions.sh
 
 echo_info_major()
 {

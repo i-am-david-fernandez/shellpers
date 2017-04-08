@@ -3,8 +3,10 @@
 ## Stolen and slightly modified from https://kura.io/2013/08/18/my-ps1-with-git-branch-new-files-staged-files-and-commit-status/
 ## The messy-looking flipping between single and double quotes is necessary to ensure control codes and function evaluation
 ## happen correctly.
+## Use of '\[','\]' pairings as per https://unix.stackexchange.com/questions/28827/why-is-my-bash-prompt-getting-bugged-when-i-browse-the-history
 
-source colour_definitions.sh
+## Requires colour_definitions.sh
+##source colour_definitions.sh
 
 SYMBOL_RCS="@"
 
@@ -19,7 +21,7 @@ fi
 
 user_prompt()
 {
-    echo -n '${debian_chroot:+($debian_chroot)}'"$USER_COLOUR\]"'\u@\h'"${colour_reset}"
+    echo -n '${debian_chroot:+($debian_chroot)}'"\[$USER_COLOUR\]"'\u@\h'"\[${colour_reset}\]"
 }
 
 short_pwd()
@@ -29,7 +31,7 @@ short_pwd()
 
 path_prompt()
 {
-    echo -n "$PATH_COLOUR\]"'$(short_pwd)'"${colour_reset}"
+    echo -n "\[$PATH_COLOUR\]"'$(short_pwd)'"\[${colour_reset}\]"
 }
 
 rcs_branch()
@@ -69,13 +71,14 @@ rcs_modified_files()
 
 rcs_prompt()
 {
-    echo -en "$colour_bold_magenta"'$(rcs_branch)'"${colour_reset}"
-    echo -en "$colour_plain_green"'$(rcs_needs_commit)'"${colour_reset}"
-    echo -en "$colour_plain_yellow"'$(rcs_modified_files)'"${colour_reset}"
-    echo -en "$colour_plain_red"'$(rcs_unadded_new)'"${colour_reset}"
+    echo -n "\[$colour_bold_magenta\]"'$(rcs_branch)'"\[${colour_reset}\]"
+    echo -n "\[$colour_plain_green\]"'$(rcs_needs_commit)'"\[${colour_reset}\]"
+    echo -n "\[$colour_plain_yellow\]"'$(rcs_modified_files)'"\[${colour_reset}\]"
+    echo -n "\[$colour_plain_red\]"'$(rcs_unadded_new)'"\[${colour_reset}\]"
 }
 
 PS1="$(user_prompt):$(path_prompt) $(rcs_prompt) $ "
+#PS1="$(user_prompt):$(path_prompt) $ "
 
 ## │ </DF>                                                                      │
 ## └────────────────────────────────────────────────────────────────────────────┘
