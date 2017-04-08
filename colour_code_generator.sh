@@ -2,6 +2,8 @@
 ## │ <DF>                                                                       │
 ##
 ## Symbolic definitions of a bunch of useful terminal colour escape codes.
+##
+## For reference material see e.g. http://misc.flogisoft.com/bash/tip_colors_and_formatting
 
 get_colour_code()
 {
@@ -115,9 +117,6 @@ demo_colours()
     do
         for modifier in $modifiers
         do
-            #echo -en `get_colour_code $modifier $colour`${modifier}-${colour}`get_colour_code reset`
-            #echo -e "\t\t"`get_colour_code $modifier light-$colour`${modifier}-light-${colour}`get_colour_code reset`
-
             code="colour_${modifier}_${colour}"
             echo -en ${!code}${modifier}-${colour}${colour_reset}
             echo -en "\t\t"
