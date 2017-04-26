@@ -6,11 +6,33 @@
 ## which may be of help when extending this thing.
 ##  svn help | awk "/$mark_start/{flag=1;next}/$mark_end/{flag=0}flag" | awk '{print $1}'
 
+svn_bin=`which svn`
+svn_colour_bin=`which svn-colour.py`
+
+svn_status()
+{
+    $svn_bin status | while read -r line
+    do
+        tag=`echo $line | awk '{print $1}'`
+        case "$tag" in
+            "?")
+                echo -e "${colour_plain_cyan}${line}${colour_reset}"
+                ;;
+            "M")
+                echo -e "${colour_plain_yellow}${line}${colour_reset}"
+                ;;
+            "!")
+                echo -e "${colour_blink_red}${line}${colour_reset}"
+                ;;
+            *)
+                echo $line
+            ;;
+        esac
+    done
+}
+
 svn()
 {
-    local svn_bin=`which svn`
-    local svn_colour_bin=`which svn-colour.py`
-
     # local args=()
     # for arg in $*
     # do
@@ -29,7 +51,9 @@ svn()
             #$svn_colour_bin $* | less -rFX
             shift
             $svn_bin diff --diff-cmd colordiff $* | less -rFX
-            return
+            ;;
+        "status")
+            svn_status
             ;;
 
         "id")
