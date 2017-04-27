@@ -53,7 +53,13 @@ demo_echos()
 
 if [ "$0" != "-bash" ]
 then
-    demo_echos
+    case "$1" in
+        "--demo")
+            demo_echos
+            ;;
+        *)
+            ;;
+    esac
 fi
 
 ## │ </DF>                                                                      │
