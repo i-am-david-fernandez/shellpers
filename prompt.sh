@@ -17,8 +17,8 @@ else
     PATH_COLOUR=$colour_bold_blue
 fi
 
-bin_svn=`which svn`
-bin_git=`which git`
+bin_svn=`which svn 2> /dev/null`
+bin_git=`which git 2> /dev/null`
 
 user_prompt()
 {
@@ -43,19 +43,53 @@ rcs_branch()
     fi
 }
 
-rcs_unadded_new()
+rcs_untracked()
 {
     if inside_git
     then
-        if [[ -z $($bin_git ls-files --other --exclude-standard 2> /dev/null) ]]
-        then
-            echo ""
-        else
-            rcs_symbol
-        fi
+        $bin_git status --porcelain | grep "\s*?" > /dev/null && rcs_symbol
+        # if [[ -z $($bin_git ls-files --other --exclude-standard 2> /dev/null) ]]
+        # then
+        #     echo ""
+        # else
+        #     rcs_symbol
+        # fi
     elif inside_svn
     then
         $bin_svn status | grep "^?" > /dev/null && rcs_symbol
+    fi
+}
+
+rcs_modified()
+{
+    if inside_git
+    then
+        $bin_git status --porcelain | grep "\s*M" > /dev/null && rcs_symbol
+        #$bin_git diff --no-ext-diff --ignore-submodules --quiet --exit-code || rcs_symbol
+    elif inside_svn
+    then
+        $bin_svn status | grep "^M" > /dev/null && rcs_symbol
+    fi
+}
+
+rcs_deleted()
+{
+    if inside_git
+    then
+        $bin_git status --porcelain | grep "\s*D" > /dev/null && rcs_symbol
+        # if [[ -z $($bin_git ls-files --deleted --exclude-standard 2> /dev/null) ]]
+        # then
+        #     echo ""
+        # else
+        #     rcs_symbol
+        # fi
+        # if [[ $files_deleted ]]
+        # then
+        #     rcs_symbol
+        # fi
+    elif inside_svn
+    then
+        $bin_svn status | grep "^\!" > /dev/null && rcs_symbol
     fi
 }
 
@@ -68,38 +102,37 @@ rcs_needs_commit()
     fi
 }
 
-rcs_modified_files()
+status_git()
 {
-    if inside_git
-    then
-        $bin_git diff --no-ext-diff --ignore-submodules --quiet --exit-code || rcs_symbol
-    elif inside_svn
-    then
-        $bin_svn status | grep "^M" > /dev/null && rcs_symbol
-    fi
-}
+    files_modified=0
+    files_deleted=0
+    files_untracked=0
 
-rcs_removed_files()
-{
-    if inside_git
-    then
-        if [[ -z $($bin_git ls-files --deleted --exclude-standard 2> /dev/null) ]]
-        then
-            echo ""
-        else
-            rcs_symbol
-        fi
-    elif inside_svn
-    then
-        $bin_svn status | grep "^\!" > /dev/null && rcs_symbol
-    fi
+    $bin_git status --porcelain | awk '{print $1}' | sort | uniq | while read -r line
+    do
+        case $line in
+            "??")
+                files_untracked=1
+            ;;
+            "D")
+                files_deleted=1
+            ;;
+            "M")
+                files_modified=1
+            ;;
+        esac
+    done
 }
 
 inside_git()
 {
-    if [[ "$bin_git rev-parse --is-inside-work-tree &> /dev/null)" != 'true' ]] && $bin_git rev-parse --quiet --verify HEAD &> /dev/null
+    if [[ -n "$bin_git" ]]
     then
-        return 0
+        #if [[ "$bin_git rev-parse --is-inside-work-tree &> /dev/null)" != 'true' ]] && $bin_git rev-parse --quiet --verify HEAD &> /dev/null
+        if $bin_git rev-parse --is-inside-work-tree &> /dev/null
+        then
+            return 0
+        fi
     fi
 
     return 1
@@ -107,9 +140,12 @@ inside_git()
 
 inside_svn()
 {
-    if $bin_svn info &> /dev/null
+    if [[ -n "$bin_svn" ]]
     then
-        return 0
+        if $bin_svn info &> /dev/null
+        then
+            return 0
+        fi
     fi
 
     return 1
@@ -137,9 +173,8 @@ rcs_which()
     if inside_git
     then
         type="git"
-    fi
-
-    if inside_svn
+        #status_git
+    elif inside_svn
     then
         type="svn"
     fi
@@ -153,9 +188,9 @@ rcs_prompt()
 
     echo -n "\[$colour_bold_magenta\]"'$(rcs_branch)'"\[${colour_reset}\]"
     echo -n "\[$colour_blink_green\]"'$(rcs_needs_commit)'"\[${colour_reset}\]"
-    echo -n "\[$colour_plain_cyan\]"'$(rcs_unadded_new)'"\[${colour_reset}\]"
-    echo -n "\[$colour_plain_yellow\]"'$(rcs_modified_files)'"\[${colour_reset}\]"
-    echo -n "\[$colour_blink_red\]"'$(rcs_removed_files)'"\[${colour_reset}\]"
+    echo -n "\[$colour_plain_cyan\]"'$(rcs_untracked)'"\[${colour_reset}\]"
+    echo -n "\[$colour_plain_yellow\]"'$(rcs_modified)'"\[${colour_reset}\]"
+    echo -n "\[$colour_blink_red\]"'$(rcs_deleted)'"\[${colour_reset}\]"
 }
 
 PS1="$(user_prompt):$(path_prompt) $(rcs_prompt) $ "
