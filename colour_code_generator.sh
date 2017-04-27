@@ -118,11 +118,13 @@ demo_colours()
         for modifier in $modifiers
         do
             code="colour_${modifier}_${colour}"
-            echo -en ${!code}${modifier}-${colour}${colour_reset}
-            echo -en "\t\t"
+            output="${!code}${modifier}_${colour}${colour_reset}"
+            echo -en $output
+            let "spaces = 48 - ${#output}"
+            printf '%*s' "$spaces"
             code="colour_${modifier}_light_${colour}"
-            echo -e ${!code}${modifier}_light_${colour}${colour_reset}
-
+            output="${!code}${modifier}_light_${colour}${colour_reset}"
+            echo -e $output
         done
     done
     echo "---"
@@ -131,9 +133,17 @@ demo_colours()
 
 if [ "$0" != "-bash" ]
 then
-    generate_colour_variables > colour_definitions.sh
-    source colour_definitions.sh
-    demo_colours
+    case "$1" in
+        "--generate")
+            generate_colour_variables > colour_definitions.sh
+            ;;
+        "--demo")
+            source colour_definitions.sh
+            demo_colours
+            ;;
+        *)
+            ;;
+    esac
 fi
 ##
 ## │ </DF>                                                                      │
