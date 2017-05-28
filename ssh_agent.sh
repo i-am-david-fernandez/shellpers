@@ -3,7 +3,7 @@
 ## SSH-agent configuration
 ## Refer to https://confluence.atlassian.com/display/BITBUCKET/Set+up+SSH+for+Git
 
-SSH_ENV="$HOME/.ssh/environment"
+SSH_ENV="$HOME/.ssh/environment.bash"
 SSH_KEY_DIR="$HOME/.ssh/keys"
 
 mkdir -p $SSH_KEY_DIR
